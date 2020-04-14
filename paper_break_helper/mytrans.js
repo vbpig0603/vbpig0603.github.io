@@ -17,6 +17,9 @@ function Segment(input)
     }
     while (_source.indexOf('\t') > -1)
 
+    
+    _source = _source.split("Sect.").join("Section")
+
     //全形引號變半形
     _source = _source.split('’').join("'")
     _source = _source.split('”').join('"')
@@ -92,6 +95,11 @@ function Segment(input)
 
     // 名字縮寫
     _source = _source.replace(/[A-Z]\. \n\n/g, function (_word) {
+        return _word.split('\n').join('')
+    })
+
+    // 章節
+    _source = _source.replace(/[0-9]\.\n\n[0-9]/g, function (_word) {
         return _word.split('\n').join('')
     })
 
