@@ -96,7 +96,7 @@ function Segment(input)
     })
 
     _source = $.trim(_source)
-    _source_array = _source.split("\n");
+    _source_array = _source.split("\n\n");
 
     output = {"source": _source, "source_array": _source_array}
     // // 移除括號內的資料

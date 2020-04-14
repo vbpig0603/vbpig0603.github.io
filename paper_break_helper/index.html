@@ -2,42 +2,67 @@
 <head>
     <script type="text/javascript" src="jquery-3.5.0.min.js"></script>
     <script type="text/javascript" src="mytrans.js"></script>
+    <script type="text/javascript" src="textarea_autoresize.js"></script>
     <script>
+        $(document).ready(function()
+        {
+            textarea_autoresize_init("paper_input");
+        });
         function click_to_Segment()
         {
+            $("#output1").html("");
             divs_html = "";
-            output = Segment($("#input").val());
+            output = Segment($("#paper_input").val());
             source_array = output["source_array"];
             for(i = 0; i < source_array.length; i++)
             {
                 trans = TranslateByGoogle(source_array[i]);
-                divs_html += "<div style=\"margin-bottom:10px;\">" + source_array[i] +"<br/>"+trans + "</div>\n";
+                divs_html += "<div class=\"translate_div\">" + source_array[i] +"<br/>"+trans + "</div>\n";
             }
             $("#output1").html(divs_html);
-            $("#input").html(output["source"]);
+            $("#paper_input").val(output["source"]);
+            textarea_autoresize_resize("paper_input");
         }
     </script>
     <style>
+        * {
+            font-family: 'Roboto',arial,sans-serif;
+            font-size: 18px;
+            line-height: 28px;
+            font-weight: lighter;
+        }
         .grid-container {
             display: grid;
-            grid-template-columns: auto auto;
-            grid-gap: 10px 30px;
+            grid-template-columns: 48% 50%;
+            grid-template-rows: 45px auto;
+            grid-gap: 1% 1.5%;
+            height: 100%
         }
         .grid-item {
             display: grid;
+        }
+        #paper_input {
+            border: 0 none white;
+            overflow: hidden;
+            padding: 9px 18px;
+            outline: none;
+            background-color: #eee;
+        }
+        .translate_div {
+            margin-bottom:21px;
         }
     </style>
 </head>
 <body>
     <div class="grid-container">
         <div class="grid-item" style="grid-column-start: 1;grid-column-end: 3;">
-            <button onClick="click_to_Segment()">Typesetting & Translate</button>
+            <button onClick="click_to_Segment()" style="padding:2px">Typesetting & Translate</button>
         </div>
         <div class="grid-item">
-            <TextArea id="input" style="width: 400px; height: 500px;">We investigate architectures of discriminatively trained deep Convolutional Net-works (ConvNets) for action recognition in video. The challenge is to capture the complementary information on appearance from still frames and motion be-tween frames. We also aim to generalise the best performing hand-crafted features within a data-driven learning framework. Our contribution is three-fold. First, we propose a two-stream ConvNet architec-ture which incorporates spatial and temporal networks. Second, we demonstrate that a ConvNet trained on multi-frame dense optical flow is able to achieve very good performance in spite of limited training data. Finally, we show that multi-task learning, applied to two different action classification datasets, can be used to increase the amount of training data and improve the performance on both. Our architecture is trained and evaluated on the standard video actions benchmarks of UCF-101 and HMDB-51, where it is competitive with the state of the art. It also exceeds by a large margin previous attempts to use deep nets for video classifica-tion. </TextArea><br/>
+            <TextArea id="paper_input" style="width: 100%;">Please paste your source...</TextArea><br/>
         </div>
         <div class="grid-item">
-            <div id="output1"></div>
+            <div id="output1" style="padding: 9px 18px;"></div>
         </div>
     </div>
 </body>
