@@ -19,6 +19,7 @@ function Segment(input)
 
     
     _source = _source.split("Sect.").join("Section")
+    _source = _source.split("Fig.").join("figure")
 
     //全形引號變半形
     _source = _source.split('’').join("'")
