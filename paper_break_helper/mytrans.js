@@ -74,9 +74,9 @@ function Segment(input)
 
     _source = _source.split('\n ').join('\n')
 
-    _source = _source.replace(/[0-9]+\. \n\n[A-Z]/g, function (_word) {
-        return '\n\n' + _word.split('\n').join('')
-    })
+    // _source = _source.replace(/[0-9]+\. \n\n[A-Z]/g, function (_word) {
+    //     return '\n\n' + _word.split('\n').join('')
+    // })
 
     _source = _source.replace(/\n\d+$/g, '')
     _source = _source.replace(/\n\d+ /g, '\n')
