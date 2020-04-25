@@ -1,12 +1,17 @@
 <html>
 <head>
+</head>
+<body>
+    <button onclick="createNotify()">Create Notify!</button>
+    <button onclick="notifyMe()">Notify me!</button>
+</body>
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
 
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-messaging.js"></script>
 <script>
     // Your web app's Firebase configuration
     var firebaseConfig = {
@@ -23,7 +28,7 @@
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
 
-    const messaging = firebase.messaging();
+    var messaging = firebase.messaging();
     messaging.requestPermission()
     .then(res => {
         // 若允許通知 -> 向 firebase 拿 token
@@ -46,9 +51,4 @@
 
     }
 </script>
-</head>
-<body>
-    <button onclick="createNotify()">Create Notify!</button>
-    <button onclick="notifyMe()">Notify me!</button>
-</body>
 </html>
