@@ -31,12 +31,12 @@
             }   
         }
 
+        var times = 0;
         // Case 2: 加上標籤
         function notifyMe()
         {
             var tagList = ['newArrival', 'newFeature', 'newMsg', 'promotion'];
             var len = tagList.length;
-            var times = 0;
             
             sendNotify({
             title: tagList[times % len] + ' ' + times,
@@ -45,6 +45,8 @@
             icon: "https://cythilya.github.io/public/favicon.ico",
             url: 'http://www.ruten.com.tw/'
             });
+
+            times++;
         }
 
         function sendNotify(msg)
