@@ -1,72 +1,50 @@
 <html>
 <head>
-    <script>
-        // Case 1: 建立簡單的通知
-        var notifyConfig = {
-        body: "\\ ^o^ /",
-        icon: "https://cythilya.github.io/public/favicon.ico"
-        };
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
 
-        function createNotify()
-        {
-            if (!("Notification" in window)) 
-            { // 檢查瀏覽器是否支援通知
-                console.log("This browser does not support notification");
-            } 
-            else if (Notification.permission === "granted") 
-            { // 使用者已同意通知
-                var notification = new Notification(
-                "Thanks for granting this permission.", notifyConfig
-                );
-            } 
-            else if (Notification.permission !== "denied") 
-            {
-                // 通知權限為 default (未要求) or undefined (老舊瀏覽器的未知狀態)，向使用者要求權限
-                Notification.requestPermission(function(permission) 
-                {
-                    if (permission === "granted") {
-                        var notification = new Notification("Hi there!", notifyConfig);
-                    }
-                });
-            }   
-        }
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
 
-        var times = 0;
-        // Case 2: 加上標籤
-        function notifyMe()
-        {
-            var tagList = ['newArrival', 'newFeature', 'newMsg', 'promotion'];
-            var len = tagList.length;
-            
-            sendNotify({
-            title: tagList[times % len] + ' ' + times,
-            body: '\\ ^o^ /',
-            tag: tagList[times % len],
-            icon: "https://cythilya.github.io/public/favicon.ico",
-            url: 'http://www.ruten.com.tw/'
-            });
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyCUuU-SCX9YPCst9SKucYGWU4TtwRNELFc",
+        authDomain: "fcm-test-6ee3f.firebaseapp.com",
+        databaseURL: "https://fcm-test-6ee3f.firebaseio.com",
+        projectId: "fcm-test-6ee3f",
+        storageBucket: "fcm-test-6ee3f.appspot.com",
+        messagingSenderId: "512961993326",
+        appId: "1:512961993326:web:d4de6e3444a66ec5ee247f",
+        measurementId: "G-2ZR3YG24M1"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
 
-            times++;
-        }
+    function createNotify()
+    {
+        const messaging = firebase.messaging();
+        messaging.requestPermission()
+        .then(res => {
+            // 若允許通知 -> 向 firebase 拿 token
+            return messaging.getToken();
+        }, err => {
+            // 若拒絕通知
+            console.log(err);  
+        })
+        .then(token => {
+            // 成功取得 token
+            //postToken(token); // 打給後端 api
+            console.log(token);
+        })
+    }
+    function notifyMe()
+    {
 
-        function sendNotify(msg)
-        {
-            var notify = new Notification(msg.title , {
-                icon: msg.icon,
-                body: msg.body,
-                tag: msg.tag,
-            });
-
-            if(msg.url) 
-            {
-                notify.onclick = function(e) 
-                { // Case 3: 綁定 click 事件
-                    e.preventDefault();
-                    window.open(msg.url);
-                }
-            }
-        }
-    </script>
+    }
+</script>
 </head>
 <body>
     <button onclick="createNotify()">Create Notify!</button>
