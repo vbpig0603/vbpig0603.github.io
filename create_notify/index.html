@@ -1,5 +1,6 @@
 <html>
 <head>
+    <script type="text/javascript" src="../jquery-3.5.0.min.js"></script>
 </head>
 <body>
     <button onclick="createNotify()">Create Notify!</button>
@@ -13,38 +14,52 @@
 <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-messaging.js"></script>
 <script>
-    // Your web app's Firebase configuration
     var firebaseConfig = {
-        apiKey: "AIzaSyCUuU-SCX9YPCst9SKucYGWU4TtwRNELFc",
-        authDomain: "fcm-test-6ee3f.firebaseapp.com",
-        databaseURL: "https://fcm-test-6ee3f.firebaseio.com",
-        projectId: "fcm-test-6ee3f",
-        storageBucket: "fcm-test-6ee3f.appspot.com",
-        messagingSenderId: "512961993326",
-        appId: "1:512961993326:web:d4de6e3444a66ec5ee247f",
-        measurementId: "G-2ZR3YG24M1"
+    apiKey: "AIzaSyCUuU-SCX9YPCst9SKucYGWU4TtwRNELFc",
+    authDomain: "fcm-test-6ee3f.firebaseapp.com",
+    databaseURL: "https://fcm-test-6ee3f.firebaseio.com",
+    projectId: "fcm-test-6ee3f",
+    storageBucket: "fcm-test-6ee3f.appspot.com",
+    messagingSenderId: "512961993326",
+    appId: "1:512961993326:web:d4de6e3444a66ec5ee247f",
+    measurementId: "G-2ZR3YG24M1"
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
 
-    var messaging = firebase.messaging();
-    messaging.requestPermission()
-    .then(res => {
-        // 若允許通知 -> 向 firebase 拿 token
-        return messaging.getToken();
-    }, err => {
-        // 若拒絕通知
-        console.log(err);  
-    })
-    .then(token => {
-        // 成功取得 token
-        //postToken(token); // 打給後端 api
-        console.log(token);
-    })
-
     function createNotify()
     {
+        var messaging = firebase.messaging();
+        messaging.usePublicVapidKey("BKis13jPscSt_O33s7b7AD2Y9isM6AqIr6POYkt5GIHhvHEcZtfgcT7zyL7qx82tDuk16-sC5_cKyCNC-xyO7lk");
+        Notification.requestPermission().then((permission) => {
+            if (permission === 'granted') {
+                console.log('Notification permission granted.');
+                // TODO(developer): Retrieve an Instance ID token for use with FCM.
+                // ...
+            } else {
+                console.log('Unable to get permission to notify.');
+            }
+        });
+
+        // Get Instance ID token. Initially this makes a network call, once retrieved
+        // subsequent calls to getToken will return from cache.
+        messaging.getToken().then((currentToken) => {
+            if (currentToken) {
+                sendTokenToServer(currentToken);
+                updateUIForPushEnabled(currentToken);
+            } else {
+                // Show permission request.
+                console.log('No Instance ID token available. Request permission to generate one.');
+                // Show permission UI.
+                updateUIForPushPermissionRequired();
+                setTokenSentToServer(false);
+            }
+        }).catch((err) => {
+            console.log('An error occurred while retrieving token. ', err);
+            showToken('Error retrieving Instance ID token. ', err);
+            setTokenSentToServer(false);
+        });
     }
     function notifyMe()
     {
