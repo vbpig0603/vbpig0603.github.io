@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import BlogCard from './BlogCard.astro';
+
+const allDocs = await getCollection('docs');
+const blogPosts = allDocs
+  .filter(entry => entry.data.isBlog)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<section class="latest-posts">
+  <h2>Latest Posts</h2>
+  {blogPosts.length > 0 ? (
+    blogPosts.map(post => (
+      <BlogCard
+        title={post.data.title}
+        description={post.data.description}
+        date={post.data.date}
+        tags={post.data.tags}
+        summary={post.data.summary}
+        slug={post.slug.replace('blog/', '')}
+      />
+    ))
+  ) : (
+    <p>No blog posts yet. Check back soon!</p>
+  )}
+</section>
+
+<style>
+  .latest-posts h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+  }
+</style>
