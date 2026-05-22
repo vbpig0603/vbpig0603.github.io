@@ -4,8 +4,8 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://blog-user.github.io',
-	base: '/blog',
+	site: 'https://vbpig0603.github.io',
+	base: '/',
 	integrations: [
 		starlight({
 			title: 'My Tech Blog',
