@@ -4,8 +4,8 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://<YOUR_USERNAME>.github.io',
-	base: '/<YOUR_REPO_NAME>',
+	site: 'https://blog-user.github.io',
+	base: '/blog',
 	integrations: [
 		starlight({
 			title: 'My Tech Blog',
@@ -13,7 +13,7 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: 'Blog',
-					autogenerate: { directory: 'blog' },
+					items: [{ autogenerate: { directory: 'blog' } }],
 				},
 				{
 					label: 'Tags',
