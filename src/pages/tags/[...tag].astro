@@ -37,16 +37,20 @@ const filteredPosts = allDocs
       <h1>Posts tagged: <em>{tag}</em></h1>
       <a href="/tags" class="back-link">&larr; All tags</a>
       {filteredPosts.length > 0 ? (
-        filteredPosts.map(post => (
-          <BlogCard
-            title={post.data.title}
-            description={post.data.description}
-            date={post.data.date}
-            tags={post.data.tags}
-            summary={post.data.summary}
-            slug={post.slug.replace('blog/', '')}
-          />
-        ))
+        filteredPosts.map(post => {
+          const slug = post.slug || post.id;
+          const postSlug = slug.replace('blog/', '');
+          return (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              date={post.data.date}
+              tags={post.data.tags}
+              summary={post.data.summary}
+              slug={postSlug}
+            />
+          );
+        })
       ) : (
         <p>No posts found with this tag.</p>
       )}

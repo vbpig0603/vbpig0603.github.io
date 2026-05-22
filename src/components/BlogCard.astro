@@ -9,12 +9,14 @@ interface Props {
 }
 
 const { title, description, date, tags, summary, slug } = Astro.props;
+
+const d = date || new Date();
 ---
 
 <article class="blog-card">
   <h2><a href={`/blog/${slug}`}>{title}</a></h2>
   <p class="blog-meta">
-    <time datetime={date.toISOString()}>{date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+    <time datetime={d.toISOString()}>{d.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
   </p>
   <p class="blog-description">{summary || description}</p>
   {tags.length > 0 && (

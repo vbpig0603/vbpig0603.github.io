@@ -18,14 +18,18 @@ const relatedPosts = (
   <aside class="related-articles">
     <h3>Related Articles</h3>
     <ul>
-      {relatedPosts.map(post => (
-        <li>
-          <a href={`/blog/${post.slug.replace('blog/', '')}`}>
-            {post.data.title}
-          </a>
-          <p class="related-summary">{post.data.summary || post.data.description}</p>
-        </li>
-      ))}
+      {relatedPosts.map(post => {
+        const slug = post.slug || post.id || '';
+        const cleanSlug = slug.replace('blog/', '');
+        return (
+          <li>
+            <a href={`/blog/${cleanSlug}`}>
+              {post.data.title}
+            </a>
+            <p class="related-summary">{post.data.summary || post.data.description}</p>
+          </li>
+        );
+      })}
     </ul>
   </aside>
 )}

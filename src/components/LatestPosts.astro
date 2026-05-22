@@ -11,16 +11,20 @@ const blogPosts = allDocs
 <section class="latest-posts">
   <h2>Latest Posts</h2>
   {blogPosts.length > 0 ? (
-    blogPosts.map(post => (
-      <BlogCard
-        title={post.data.title}
-        description={post.data.description}
-        date={post.data.date}
-        tags={post.data.tags}
-        summary={post.data.summary}
-        slug={post.slug.replace('blog/', '')}
-      />
-    ))
+    blogPosts.map(post => {
+      const slug = post.slug || post.id || '';
+      const cleanSlug = slug.replace('blog/', '');
+      return (
+        <BlogCard
+          title={post.data.title}
+          description={post.data.description}
+          date={post.data.date}
+          tags={post.data.tags}
+          summary={post.data.summary}
+          slug={cleanSlug}
+        />
+      );
+    })
   ) : (
     <p>No blog posts yet. Check back soon!</p>
   )}

@@ -2,9 +2,11 @@
 import Default from '@astrojs/starlight/components/ContentPage.astro';
 import RelatedArticles from '../RelatedArticles.astro';
 const { entry } = Astro.props;
+const isBlog = entry?.data?.isBlog;
+const related = isBlog && entry.data.related?.length > 0 ? entry.data.related : null;
 ---
 
 <Default {...Astro.props} />
-{entry.data.isBlog && entry.data.related?.length > 0 && (
-  <RelatedArticles related={entry.data.related} />
+{related && (
+  <RelatedArticles related={related} />
 )}
