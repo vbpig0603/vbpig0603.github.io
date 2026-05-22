@@ -9,30 +9,74 @@ const blogPosts = allDocs
 ---
 
 <section class="latest-posts">
-  <h2>Latest Posts</h2>
-  {blogPosts.length > 0 ? (
-    blogPosts.map(post => {
-      const slug = post.slug || post.id || '';
-      const cleanSlug = slug.replace('blog/', '');
-      return (
-        <BlogCard
-          title={post.data.title}
-          description={post.data.description}
-          date={post.data.date}
-          tags={post.data.tags}
-          summary={post.data.summary}
-          slug={cleanSlug}
-        />
-      );
-    })
-  ) : (
-    <p>No blog posts yet. Check back soon!</p>
-  )}
+  <div class="latest-posts-header">
+    <h2>Latest Posts</h2>
+    <span class="latest-posts-accent"></span>
+  </div>
+
+  <div class="latest-posts-grid">
+    {blogPosts.length > 0 ? (
+      blogPosts.map(post => {
+        const slug = post.slug || post.id || '';
+        const cleanSlug = slug.replace('blog/', '');
+        return (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            date={post.data.date}
+            tags={post.data.tags}
+            summary={post.data.summary}
+            slug={cleanSlug}
+          />
+        );
+      })
+    ) : (
+      <p>No blog posts yet. Check back soon!</p>
+    )}
+  </div>
 </section>
 
 <style>
-  .latest-posts h2 {
+  .latest-posts {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .latest-posts-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     margin-bottom: 1.5rem;
+  }
+
+  .latest-posts-header h2 {
+    margin: 0;
     font-size: 1.75rem;
+    letter-spacing: 0.01em;
+  }
+
+  .latest-posts-accent {
+    height: 3px;
+    flex: 0 0 40px;
+    border-radius: 999px;
+    background: linear-gradient(
+      to right,
+      #3b82f6,
+      #8b5cf6
+    );
+  }
+
+  .latest-posts-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns:
+      minmax(0, 1 fr)
+      minmax(0, 1 fr);
+  }
+
+  @media (max-width: 768px) {
+    .latest-posts-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
