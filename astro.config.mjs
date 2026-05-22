@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import starlightThemeRapide from 'starlight-theme-rapide';
 
 // https://astro.build/config
 export default defineConfig({
@@ -8,6 +9,7 @@ export default defineConfig({
 	base: '/',
 	integrations: [
 		starlight({
+			plugins: [starlightThemeRapide()],
 			title: 'My Tech Blog',
 			description: 'Personal technical blog and learning notes',
 			sidebar: [
