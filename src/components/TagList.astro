@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+
+const allDocs = await getCollection('docs');
+const blogPosts = allDocs.filter(entry => entry.data.isBlog);
+
+const tagCounts = new Map<string, number>();
+for (const post of blogPosts) {
+  for (const tag of post.data.tags) {
+    tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+  }
+}
+const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
+---
+
+<section class="tag-list">
+  <h2>All Tags</h2>
+  {sortedTags.length > 0 ? (
+    <div class="tags-cloud">
+      {sortedTags.map(([tag, count]) => (
+        <a href={`/tags/${tag}`} class="tag-item">
+          {tag} <span class="tag-count">({count})</span>
+        </a>
+      ))}
+    </div>
+  ) : (
+    <p>No tags found.</p>
+  )}
+</section>
+
+<style>
+  .tag-list h2 {
+    margin-bottom: 1.5rem;
+  }
+  .tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .tag-item {
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    background: var(--sl-color-accent-low);
+    color: var(--sl-color-accent);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+  }
+  .tag-item:hover {
+    background: var(--sl-color-accent);
+    color: var(--sl-color-white);
+  }
+  .tag-count {
+    opacity: 0.7;
+  }
+</style>
