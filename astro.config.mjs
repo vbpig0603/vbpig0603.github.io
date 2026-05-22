@@ -10,7 +10,23 @@ export default defineConfig({
 		starlight({
 			title: 'My Tech Blog',
 			description: 'Personal technical blog and learning notes',
-			sidebar: [],
+			sidebar: [
+				{
+					label: 'Blog',
+					autogenerate: { directory: 'blog' },
+				},
+				{
+					label: 'Tags',
+					link: '/tags',
+				},
+				{
+					label: 'About',
+					link: '/about',
+				},
+			],
+			components: {
+				Hero: './src/components/override/Hero.astro',
+			},
 		}),
 	],
 });
