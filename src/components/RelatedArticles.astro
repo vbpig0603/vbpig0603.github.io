@@ -1,0 +1,62 @@
+---
+import { getCollection, getEntryBySlug } from 'astro:content';
+
+interface Props {
+  related: string[];
+}
+
+const { related } = Astro.props;
+
+const relatedPosts = (
+  await Promise.all(
+    related.map(slug => getEntryBySlug('docs', `blog/${slug}`))
+  )
+).filter(Boolean);
+---
+
+{relatedPosts.length > 0 && (
+  <aside class="related-articles">
+    <h3>Related Articles</h3>
+    <ul>
+      {relatedPosts.map(post => (
+        <li>
+          <a href={`/blog/${post.slug.replace('blog/', '')}`}>
+            {post.data.title}
+          </a>
+          <p class="related-summary">{post.data.summary || post.data.description}</p>
+        </li>
+      ))}
+    </ul>
+  </aside>
+)}
+
+<style>
+  .related-articles {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--sl-color-gray-5);
+  }
+  .related-articles h3 {
+    margin-bottom: 1rem;
+  }
+  .related-articles ul {
+    list-style: none;
+    padding: 0;
+  }
+  .related-articles li {
+    margin-bottom: 1rem;
+  }
+  .related-articles a {
+    color: var(--sl-color-accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .related-articles a:hover {
+    text-decoration: underline;
+  }
+  .related-summary {
+    font-size: 0.875rem;
+    color: var(--sl-color-gray-3);
+    margin-top: 0.25rem;
+  }
+</style>

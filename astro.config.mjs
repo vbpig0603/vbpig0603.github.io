@@ -26,6 +26,7 @@ export default defineConfig({
 			],
 			components: {
 				Hero: './src/components/override/Hero.astro',
+				ContentPage: './src/components/override/ContentPage.astro',
 			},
 		}),
 	],

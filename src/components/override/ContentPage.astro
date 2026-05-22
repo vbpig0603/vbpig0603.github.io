@@ -1,0 +1,10 @@
+---
+import Default from '@astrojs/starlight/components/ContentPage.astro';
+import RelatedArticles from '../RelatedArticles.astro';
+const { entry } = Astro.props;
+---
+
+<Default {...Astro.props} />
+{entry.data.isBlog && entry.data.related?.length > 0 && (
+  <RelatedArticles related={entry.data.related} />
+)}
