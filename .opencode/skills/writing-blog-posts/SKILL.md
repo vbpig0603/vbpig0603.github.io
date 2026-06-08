@@ -46,7 +46,7 @@ digraph writing_blog_posts {
 
 開始前先詢問使用者：**「這篇文章要寫中文還是英文？」**
 
-- 中文：日期格式使用 `zh-CN` locale，文章用語為繁體中文
+- 中文：日期格式使用 `zh-TW` locale，文章用語為繁體中文
 - 英文：日期格式使用 `en-US` locale，文章用語為英文
 
 預設為中文。
