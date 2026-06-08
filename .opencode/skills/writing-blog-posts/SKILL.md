@@ -153,3 +153,41 @@ digraph writing_blog_posts {
 | 全文只講一個主題嗎？ | |
 
 如果任一項未通過，回到階段 3 修改對應段落。全部通過後進入階段 5。
+
+## 階段 5：寫入檔案
+
+### Frontmatter 產生規則
+
+```yaml
+---
+title: <從主題提煉，與檔案名稱一致>
+description: <簡短描述，用於搜尋與摘要>
+date: <當天日期 YYYY-MM-DD>
+tags: [<從內容推斷，使用者可調整>]
+author: <使用者名稱或預設值>
+summary: <從內容摘要，首頁用>
+related: []     # 相關文章 slug，可選，預設空陣列
+isBlog: true
+draft: true     # Starlight 不會渲染此頁面，確認發布後改 false
+---
+```
+
+### Slug 產生規則
+
+- 從 title 自動產生
+- 全小寫
+- 空白換成連字號 `-`
+- 移除特殊字元
+- 範例：`"在 Windows 上使用 LLM Studio"` → `local-llm-architecture`
+
+### 檔案路徑
+
+寫入到 `src/content/docs/blog/<slug>.md`
+
+### 最終提示
+
+完成後告知使用者：
+- 檔案已寫入的路徑
+- 提醒 `draft: true`，發布前需改為 `false`
+- 建議檢查 `tags` 和 `related` 是否正確
+- 可用 `npm run dev` 預覽
