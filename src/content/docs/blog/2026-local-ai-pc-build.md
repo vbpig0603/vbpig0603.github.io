@@ -1,16 +1,16 @@
 ---
 title: 2026 上半年自組本地 AI PC 全記錄
-description: 從幻想 100G VRAM 到用不到 4 萬元組出能跑 Qwen 3.6 27B 的 AI PC——我的硬體選擇歷程與最終配置。
+description: 從幻想 100G VRAM 到用 4 萬出頭組出能跑 Qwen 3.6 27B 的 AI PC——我的硬體選擇歷程與最終配置。
 date: 2026-06-24
 tags: [AI, LLM, 硬體, 自組電腦, NVIDIA, 魔改顯卡, 量化]
 author: Freedom
-summary: 用不到 4 萬元組出一台能跑 Qwen 3.6 27B 的 AI PC，紀錄從幻想 100G VRAM 到最終配置的決策過程。
+summary: 用 4 萬出頭組出一台能跑 Qwen 3.6 27B 的 AI PC，紀錄從幻想 100G VRAM 到最終配置的決策過程。
 related: []
 isBlog: true
 draft: false
 ---
 
-2026 年，如果你想在家裡跑 LLM，第一個念頭很可能是：要買一張幾十萬的 NVIDIA 頂級顯卡。我原本也這麼想——直到我發現兩件事：一是主流模型從 100B 瘦身到 30B 甚至 9B 就能寫 code，二是我用不到 4 萬元組了一台 AI PC，並且可以跑得動現在熱烈討論之一的 Qwen 3.6 27B 模型。
+2026 年，如果你想在家裡跑 LLM，第一個念頭很可能是：要買一張幾十萬的 NVIDIA 頂級顯卡。我原本也這麼想——直到我發現兩件事：一是主流模型從 100B 瘦身到 30B 甚至 9B 就能寫 code，二是我用 4 萬出頭組了一台 AI PC，並且可以跑得動現在熱烈討論之一的 Qwen 3.6 27B 模型。
 
 ---
 
@@ -44,10 +44,10 @@ draft: false
 | RAM | Kingston DDR4 2666 16G ×2 | 4,000 |
 | SSD | 美光 M.2 512G | 1,800 |
 | GPU | 魔改 RTX 2080ti 22G ×2 | 約 24,000 |
-| Power | 既有 1000W | 0 |
-| **總計** | | **約 36,850** |
+| Power | 1000W Power | 約 5,000 |
+| **總計** | | **約 41,850** |
 
-全部不到 4 萬，兩張 2080ti 加起來 44G VRAM，足以跑 Qwen 3.6 27B、Llama 4 Scout 17B，而且保有日後升級的彈性。
+全部約 4 萬出頭，兩張 2080ti 加起來 44G VRAM，足以跑 Qwen 3.6 27B、Llama 4 Scout 17B，而且保有日後升級的彈性。
 
 ---
 
